@@ -1,44 +1,41 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Solution {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        TreeMap<Integer, Integer> map = new TreeMap<>();
 
-        String line = scanner.next();
-
-        while (scanner.hasNext()) {
-            String nextLine = scanner.next();
-            line += (" " + nextLine);
-        }
-        String[] words = line.toLowerCase().split(" ");
-
-        Map<String, Integer> map = new HashMap<>();
-        for (String word : words) {
-            int countWord = 0;
-            if (map.get(word) != null) {
-                countWord = map.get(word);
+        int countLine = scanner.nextInt();
+        for (int i = 0; i < countLine; i++) {
+            int query = scanner.nextInt();
+            if (query == 1) {
+                int valueAsKey = scanner.nextInt();
+                Integer countValue = map.get(valueAsKey);
+                if (countValue == null) {
+                    countValue = 1;
+                } else {
+                    countValue++;
+                }
+                map.put(valueAsKey, countValue);
+            } else {
+                if (map.size() > 0) {
+                    int firstKey = map.firstKey();
+                    int firstValue = map.get(firstKey);
+                    if (firstValue == 1) {
+                        map.remove(firstKey);
+                    } else {
+                        map.put(firstKey, --firstValue);
+                    }
+                    System.out.println(firstKey);
+                }
             }
-            countWord++;
-            if ((!word.equals(" ")) && (!word.isEmpty())) {
-                map.put(word, countWord);
-            }
         }
 
-        int countMax = Collections.max(map.values());
-        Set<String> set = new TreeSet<>();
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            if (entry.getValue() == countMax) {
-                set.add(entry.getKey());
-            }
-
-        }
-
-        for (String s : set) {
-            System.out.println(s);
-        }
 
         scanner.close();
     }
+
 }
 
