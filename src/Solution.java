@@ -1,6 +1,7 @@
-import java.util.HashSet;
+import java.util.ArrayDeque;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
+import java.util.TreeMap;
 
 public class Solution {
 
@@ -8,17 +9,19 @@ public class Solution {
         Scanner scanner = new Scanner(System.in);
 
         String line = scanner.nextLine();
-        Set<String> set = new HashSet<>();
-
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        ArrayDeque<Integer> queueOpen = new ArrayDeque<>();
         for (int i = 0; i < line.length(); i++) {
-            for (int j = (line.length()); j >= i; j--) {
-                String temp = line.substring(i, j);
-                if (!temp.isEmpty()) {
-                    set.add(temp);
-                }
+            if (line.charAt(i) == '(') {
+                queueOpen.push(i);
+            } else {
+                map.put(queueOpen.pop(), i);
             }
         }
-        System.out.println(set.size());
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            System.out.println((entry.getKey() + 1) + " " + (entry.getValue() + 1));
+        }
+
         scanner.close();
     }
 
