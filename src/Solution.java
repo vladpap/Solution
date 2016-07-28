@@ -5,13 +5,10 @@ public class Solution {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String line = scanner.nextLine();
+        String line = scanner.next();
 
-        while (scanner.hasNextLine()) {
-            String nextLine = scanner.nextLine();
-            if (nextLine.isEmpty()) {
-                break;
-            }
+        while (scanner.hasNext()) {
+            String nextLine = scanner.next();
             line += (" " + nextLine);
         }
         String[] words = line.toLowerCase().split(" ");
