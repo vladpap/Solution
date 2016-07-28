@@ -1,26 +1,39 @@
-import java.util.ArrayDeque;
-import java.util.Map;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 public class Solution {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String line = scanner.nextLine();
-        TreeMap<Integer, Integer> map = new TreeMap<>();
-        ArrayDeque<Integer> queueOpen = new ArrayDeque<>();
-        for (int i = 0; i < line.length(); i++) {
-            if (line.charAt(i) == '(') {
-                queueOpen.push(i);
-            } else {
-                map.put(queueOpen.pop(), i);
+        String[] lineInteger = scanner.nextLine().split(" ");
+//        int n = Integer.valueOf(lineInteger[0]);
+        int k = Integer.valueOf(lineInteger[1]);
+
+        String[] array = scanner.nextLine().split(" ");
+        String[] b = scanner.nextLine().split(" ");
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < b.length; i++) {
+            list.add(Integer.valueOf(b[i]));
+        }
+        for (int i = 0; i < k; i++) {
+            List<String> stringsList = new ArrayList<>();
+            for (int j = 0; j < array.length; j++) {
+                if ((j + 1) % list.get(i) != 0) {
+                    stringsList.add(array[j]);
+                }
+            }
+            array = stringsList.toArray(new String[stringsList.size()]);
+        }
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+            if ((i + 1) != array.length) {
+                System.out.print(" ");
             }
         }
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            System.out.println((entry.getKey() + 1) + " " + (entry.getValue() + 1));
-        }
+        System.out.println("");
 
         scanner.close();
     }
